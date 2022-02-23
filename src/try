@@ -1,7 +1,0 @@
-<div class="navigation1" @click="summaryTab()">
-            <h1 class="summaryTab">Summary</h1>
-        </div>
-        <div class="navigation2">
-            <h1 class="detailsTab">Details</h1>
-        </div>
-        :class="[this.isActive ? 'disable-Tab':'active-Tab']" @click="toggleclass()"
