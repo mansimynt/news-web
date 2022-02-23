@@ -11,7 +11,7 @@
                 <div >
                     <div class="wrap-Profile-Icon">
                       <img class="profile-Icon-Circle" src="src\assets\images\profileIconCircle.svg">
-                        <div class="profile-Icon-Name">{{username}}</div>
+                        <div class="profile-Icon-Name">{{initials}}</div>
                     </div>
 					
                 </div>
@@ -28,13 +28,18 @@ export default {
 
 	data(){
 		return{
-			username:''
+			username:'',
+			initials:''
 		}
 	},
 	mounted(){
-
+		let name=[]
 		this.username=this.$store.state.loggedUser;
-
+		 name=this.username.split(' ');
+		 let i = name[0].split('')[0];
+		 let j=name[1].split('')[0];
+		 console.log(i,j);
+		return this.initials=i+j;
 
 	}
     
@@ -97,9 +102,9 @@ font-size: 14px;
 	display: block;
 }
 .profile-Icon-Name{
-	margin-top: -36px;
-	font-size: 19px;
-	margin-left: 8px;
+	margin-top: -35px;
+	font-size: 16px;
+	margin-left: 7px;
 	color: rgb(255, 255, 255);
 }
 
