@@ -1,16 +1,15 @@
 <template>
-  <div class="current-Services-Card">
-    <p class="Current-Services-Heading">Current Services</p>
+  <div class="current-services-card">
+    <p class="current-services-heading">Current Services</p>
     <div class="current-Services-Flex" id="current-Services-Flex"></div>
-    <!-- <api-calls @loggedId="userId=$event"></api-calls> -->
+  
   </div>
 </template>
 <script>
-import { eventBus } from "../main";
-//import apiCalls from "../vues/apiCalls.vue";
+import store from "../store/store";
 export default {
-  components: { eventBus },
-  data() {
+    components: {  store },
+  data:function() {
     return {
       totalServices: [],
       subscribeServices: [],
@@ -20,12 +19,12 @@ export default {
       ratings: [],
     };
   },
-  mounted() {
-    //this.fetchdata();
-              this.userId=this.$store.state.userId;
-              console.log(this.userId);
-   
-    this.getData();
+  created() {
+    // //this.fetchdata();
+    // this.userId=this.$store.state.userId;
+    // console.log(this.userId);
+    // //this.getData();
+    this.$store.dispatch("calculateUserServices");
   },
   methods: {
     
@@ -161,14 +160,14 @@ export default {
   height: 148px;
   margin-left: 40px;
 }
-.current-Services-Card {
+.current-services-card {
   height: 392px;
   background: #ffffff;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   margin: 0px 24px 0px 24px;
 }
-.Current-Services-Heading {
+.current-services-heading {
   width: 148px;
   height: 25px;
   padding-top: 24px;
@@ -183,7 +182,7 @@ export default {
   flex-wrap: wrap;
 }
 @media screen and (min-width: 482px) {
-  div.current-Services-Card {
+  div.current-services-card {
     height: 250px;
   }
 }

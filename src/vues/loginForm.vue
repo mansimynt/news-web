@@ -1,11 +1,12 @@
 <template>
-<div class="wrap">
-  <form-design></form-design>
-  <!-- <api-calls @invalid_Error="notMatch($event)"></api-calls> -->
+  <div class="wrap">
+    <form-design></form-design>
     <div class="login-Card">
       <div class="login-Page">
         <p class="login-Heading">Login</p>
-        <p class="Please-Login-Heading page-Text">Please login to your account</p>
+        <p class="Please-Login-Heading page-Text">
+          Please login to your account
+        </p>
         <p class="loginId page-Text">Email or Phone</p>
         <input
           type="text"
@@ -19,92 +20,59 @@
           class="input-Box page-Text"
           v-model="inputpassword"
         />
-        <p class="error-Message" v-if="invalidPassword" >Password and Email Not Matched</p>
         <p class="forgot-Password">Forgot Password?</p>
         <button class="loginBtn" @click="submit()">Login</button>
         <div class="dont-Have-Account-Text">
           Don't have an account?
-          <router-link to="/createAccount">  <p class="create-Account">  Create an Account</p></router-link>
+          <router-link to="/createAccount">
+            <p class="create-Account">Create an Account</p></router-link
+          >
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-
-import axious from "axios";
-import {eventBus} from '../main'
-import formDesign from '../component/formDesign.vue';
-import store from '../store/store'
+import formDesign from "../component/formDesign.vue";
+import store from "../store/store";
 
 export default {
-  
-  components: { formDesign,store },
+  components: { formDesign, store },
   data() {
     return {
       inputemail: "",
       inputpassword: "",
-      invalidPassword:false,
+      invalidPassword: false,
       email: "",
       password: "",
-      id:null,
-      loginUser:''
+      id: null,
+      loginUser: ""
     };
   },
-  
-  
-  methods: {
-
-    login(){
-     eventBus.$emit('login',this.inputemail,this.inputpassword);
-    
-    },
-    notMatch(event){
-      console.log(event);
-      
-      this.invalidPassword=event;
-
-    },
-
-    submit() {
-      axious.get(this.$site_url + "users")
-        .then((res) => {
-          const data = res.data;
-          const allusers = [];
-          for (let key in data) {
-            const user = data[key];
-            allusers.push(user);
-            if (
-              allusers[key].email === this.inputemail &&
-              allusers[key].password === this.inputpassword
-
-            ) {
-           
-             this.$store.state.userId=allusers[key].id;
-             this.$store.state.loggedUser=allusers[key].FullName;
-            console.log(this.$store.state.loggedUser);
-               this.$router.push('/dashboard');
-              
-            }
-          }
-        })
-        .catch((error) => console.log(error));
-    },
+  beforeMount() {
+    this.$store.dispatch("getAllUsers");
+    this.$store.dispatch("getTotalServices");
   },
+  methods: {
+    submit() {
+      let currentUserDetails = [this.inputemail, this.inputpassword];
+      this.$store.dispatch("matchCurrentUserDetails", currentUserDetails);
+    }
+  }
 };
 </script>
 <style scoped>
-.error-Message{
+.error-Message {
   color: red;
-   margin-left: 400px;
+  margin-left: 400px;
 }
 .wrap {
   display: flex;
   flex-direction: row;
 }
-.create-Account{
+.create-Account {
   color: #d90429;
-  display: inline ;
+  display: inline;
 }
 .login-Card {
   width: 50%;
@@ -127,7 +95,6 @@ export default {
   margin-left: 400px;
 }
 .Please-Login-Heading {
-
   margin-top: 25px;
   color: #828282;
   font-family: Open Sans;
@@ -147,7 +114,6 @@ p {
   margin-left: 400px;
 }
 .loginId {
-
   margin-top: 40px;
   color: #1a1a1a;
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="available-Services-Card ">
-        <p class="Available-Services-Heading">Available Services</p>
+  <div class="available-services-card ">
+        <p class="available-services-heading">Available Services</p>
         <div class="available-Sevice-Flexbox">
         </div>
   </div>        
@@ -82,7 +82,7 @@ export default {
 };
 </script>
 <style>
-.available-Services-Card{
+.available-services-card{
 	height: 311px;
 	background: #FFFFFF;
 	margin: 24px 24px 0px 24px;
@@ -96,7 +96,7 @@ padding-bottom: 10px;
 	margin-top: 24px;
 	margin-left: 24px;
 }
-.Available-Services-Heading{
+.available-services-heading{
 	margin-left: 24px;
 	padding-top: 24px;
 	font-size: 18px;
@@ -111,12 +111,12 @@ padding-bottom: 10px;
 }
 @media screen and ( min-width: 482px){
 
-  div.available-Services-Card {
+  div.available-services-card {
   height: 288px;
 
 }}
 @media screen and ( min-width: 644px){
-	div.available-Services-Card {
+	div.available-services-card {
     height: 192px;
 
 } 

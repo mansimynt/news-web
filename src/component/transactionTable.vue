@@ -1,7 +1,7 @@
 <template>
-    <div class="table-Container">
+    <div class="table-container">
         <table>
-            <tr class="table-Headings">
+            <tr class="table-headings">
                 <th>Transaction ID</th>
                 <th>Date</th>
                 <th>Amount</th>
@@ -67,7 +67,7 @@ export default {
 img{
     display: inline;
 }
-.table-Container{
+.table-container{
   margin: 12px 24px 350px 24px;
 height: 300px;
 background: #FFFFFF;
@@ -99,7 +99,7 @@ tr{ width: 100%;
 
 }
 
-.table-Headings{
+.table-headings{
     background: #FFFFFF;
    
 }

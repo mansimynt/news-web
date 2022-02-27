@@ -22,7 +22,6 @@ import footerBar from '../component/pageFooter.vue'
 import pageHeading from '../component/pageHeading.vue'
 import NavigationBar from '../component/navigationBar.vue'
 import SummaryCard from '../component/summaryCard.vue'
-import {eventBus} from '../main'
 import ApiCalls from './apiCalls.vue'
 
 
@@ -61,7 +60,6 @@ export default {
 	
 	font-weight: bold;
 	margin-right: 8px;
-	margin-top: 0px;
     display: inline;
 }
 .services-For-You-Message{
