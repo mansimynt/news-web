@@ -4,10 +4,10 @@ import createAccountForm from "./vues/createAccountForm.vue"
 import dashBoard from './vues/dashBoard.vue'
 import detailsTab from './vues/detailsTab.vue'
 import editProfile from './vues/editProfile.vue'
+import VueRouter from 'vue-router';
 
 
-
-export const routes =[
+ const routes =[
     { path : '', component: loginForm},
     { path : '/Login', component: loginForm},
 
@@ -18,3 +18,10 @@ export const routes =[
     { path: 'Dashboard', redirect :'/dashboard' },
     
 ];
+
+ const router = new VueRouter({
+    routes,
+    base:"",
+    mode:'history'
+  });
+  export  default  router;

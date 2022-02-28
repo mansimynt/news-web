@@ -55,9 +55,11 @@ export default {
     this.$store.dispatch("getTotalServices");
   },
   methods: {
-    submit() {
+     submit() {
       let currentUserDetails = [this.inputemail, this.inputpassword];
-      this.$store.dispatch("matchCurrentUserDetails", currentUserDetails);
+     const currentUser= this.$store.dispatch("userAuthentication", currentUserDetails);
+     console.log(currentUser,"current user");
+     this.$router.push('/dashboard')
     }
   }
 };

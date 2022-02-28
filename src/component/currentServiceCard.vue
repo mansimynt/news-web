@@ -19,12 +19,13 @@ export default {
       ratings: [],
     };
   },
-  created() {
+  mounted() {
     // //this.fetchdata();
     // this.userId=this.$store.state.userId;
     // console.log(this.userId);
     // //this.getData();
-    this.$store.dispatch("calculateUserServices");
+    const isCorrectUser =this.$store.dispatch("calculateUserServices");
+    console.log(isCorrectUser,"current user");
   },
   methods: {
     

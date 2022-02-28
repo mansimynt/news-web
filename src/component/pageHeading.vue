@@ -34,18 +34,24 @@ export default {
   data: function() {
     return {
       username: "",
-      initials: ""
+    
     };
   },
   mounted() {
     let name = [];
-    this.username = this.$store.state.loggedUser;
-    name = this.username.split(" ");
-    let i = name[0].split("")[0];
-    let j = name[1].split("")[0];
-    console.log(i, j);
-    return (this.initials = i + j);
-  }
+    //this.username = this.$store.state.loggedUser;
+   // name = this.username.split(" ");
+    //let i = name[0].split("")[0];
+    //let j = name[1].split("")[0];
+    //console.log(i, j);
+    //return (this.initials = i + j);
+  },
+  computed:{
+    initials(){
+     return this.$store.dispatch("nameInitials");
+    }
+    }
+  
 };
 </script>
 <style scoped>
