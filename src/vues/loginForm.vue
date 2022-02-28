@@ -25,7 +25,8 @@
         <div class="dont-Have-Account-Text">
           Don't have an account?
           <router-link to="/createAccount">
-            <p class="create-Account">Create an Account</p></router-link
+            <p class="create-Account">Create an Account</p>
+            </router-link
           >
         </div>
       </div>
@@ -49,7 +50,7 @@ export default {
       loginUser: ""
     };
   },
-  beforeMount() {
+  beforeCreate() {
     this.$store.dispatch("getAllUsers");
     this.$store.dispatch("getTotalServices");
   },

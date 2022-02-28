@@ -8,7 +8,7 @@
 <script>
 import store from "../store/store";
 export default {
-    components: {  store },
+  components: {  store },
   data:function() {
     return {
       totalServices: [],

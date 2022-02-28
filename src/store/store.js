@@ -7,7 +7,7 @@ const site_url = "http://localhost:3000/";
 const store = new Vuex.Store({
   state: {
     userId: null,
-    loggedUser: "",
+    loggedUser: [],
     jsonUserData: [],
     users: [],
     totalServices: []
@@ -16,6 +16,7 @@ const store = new Vuex.Store({
     getUsers(state, getAllUsers) {
       state.jsonUserData = getAllUsers; //storing all json data
       state.users = state.jsonUserData.data;
+      console.log("all Users",state.users);
     },
     currentUserCheck: (state, currentUserDetails) => {
      // console.log("alluserarrray", state.users);
@@ -26,7 +27,7 @@ const store = new Vuex.Store({
         ) {
           state.loggedUser = state.users[key]; //initialise current logged user
           console.log("we get current user data");
-          // window.location.replace("http://localhost:8080/dashboard");
+           window.location.replace("http://localhost:8080/dashboard");
         } else {
           console.log("u dont have account");
         }
@@ -34,30 +35,29 @@ const store = new Vuex.Store({
     },
     calculateUserServices:(state)=>{
       console.log(state.loggedUser);
+    },
+    getTotalServices:(state,allservices)=>{
+      state.totalServices = allservices.data;
+      console.log(state.totalServices,"all services fetch api");
     }
   }
   ,
   actions: {
     getAllUsers({ commit }) {
       axios.get(site_url + "users").then(users => {
-        //Get all users data api
-        commit("getUsers", users);
+        commit("getUsers", users); //Get all users data api
       });
     },
     matchCurrentUserDetails({ commit }, currentUserDetails) {
       // curent user details email & password check
       commit("currentUserCheck", currentUserDetails);
     },
-    getTotalServices({ state }) {
+    getTotalServices({ commit }) {
       axios.get(site_url + "allservices").then(allservices => {
-        //Get all service data
-        state.totalServices = allservices.data;
-        //console.log(this.state.totalServices, "all services");
-        //commit("getLoggedUserServices",this.state.totalServices);
+      commit("getTotalServices",allservices); //Get all service data
       });
     },
     calculateUserServices({  commit }) {
-     console.log('hhhhhhhhhhhhhhh');
       commit("calculateUserServices");
     }
   }
