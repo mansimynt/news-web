@@ -2,86 +2,48 @@
   <div class="available-services-card ">
         <p class="available-services-heading">Available Services</p>
         <div class="available-Sevice-Flexbox">
+          <table class="currentservice" >
+       <tr >
+        <th v-for="img in serviceImages" :key="img.id"><img  :src="img.imageUrl" ></th></tr>
+       <tr><td v-for=" i in servicename"  :key="i"> {{i.servicename}}</td>
+       </tr>
+
+      </table>
         </div>
   </div>        
 
     
 </template>
 <script>
-
+import wallet from "../assets/images/Wallet.svg"
+import taxPayment from "../assets/images/Taxpayment.svg"
+import investments from "../assets/images/Investments.svg"
+import loans from "../assets/images/Loans.svg"
 export default {
   data() {
     return {
-      totalServices: [],
-      subscribeServices: [],   /* declaring arrays */
-      availableServices: [],
-      result: [],
-	  userId: 0
+      
+    serviceImages:[],
+    servicename:[]
     };
   },
   created() {
-     this.userId=this.$store.state.userId;  // assigning currently login user id
-    this.getData();
+    this.serviceImages.push({"id": 1, "imageUrl":wallet},
+    {"id": 2, "imageUrl":taxPayment},
+    {"id": 3, "imageUrl":investments},
+    {"id":4,"imgUrl":loans});
+    
+    this.servicename.push({"id": 1, "servicename":"Wallet"},
+    {"id": 2, "servicename":"TaxPayment"},
+    {"id": 3, "servicename":"Investments"},
+    {"id":4,"servicename":"Loans"});
   },
-  methods: {
-    getData: function() {
-
-		this.$http.get(this.$site_url+"allservices").then(response=>{
-			return response.json();
-			})
-			.then(data=>{ 
-          for(let i=0;i<data.length;i++)//calculate total services
-          {                               
-             let j=data[i].service;
-             this.totalServices.push(j);
-          }
-         
-		
-	
-	this.$http.get(this.$site_url+ "users").then(response=>{ return response.json()})
-    .then((data)=>{
-  
-    for(let i=0;i<data[this.userId].services.length;i++)//Calulating subsribe service by user
-    {
-        let j=data[this.userId].services[i].servicename;
-      this.result = this.subscribeServices.push(j);
-    }
-   
-    this.availableServices=this.totalServices;//assigning total services to available services
-   // console.info("availableservice before camparing",this.availableServices);
-    for(let i=0;i<this.availableServices.length;i++)
-    {
-        for(let j=0;j<this.subscribeServices.length;j++)
-        { 
-            if(this.availableServices[i]===this.subscribeServices[j])
-            {
-                this.availableServices.splice(i,1);
-            }
-        }
-    }//console.info("remaining available services",this.availableServices); 
-	
-      for(let i=0;i<this.availableServices.length;i++)
-    { 
-     let availableflex=document.querySelector('.available-Sevice-Flexbox');
-     let div=document.createElement('div');
-     div.className='availableservice';
-     let img=document.createElement('img');
-     let src= "src/assets/images/"+this.availableServices[i] + ".svg";
-     img.src=src;
-     img.className='serviceimg';
-     div.appendChild(img);
-     let p=document.createElement('p');
-     p.innerHTML=this.availableServices[i];
-     p.className='servicename';
-     div.appendChild(p);
-     availableflex.appendChild(div);
-    }
- });
-});//
-	} }
-};
+}
 </script>
-<style>
+<style >
+th{
+  padding-right: 200px;
+}
 .available-services-card{
 	height: 311px;
 	background: #FFFFFF;
@@ -102,7 +64,7 @@ padding-bottom: 10px;
 	font-size: 18px;
 	font-weight: bold;
 	height: 25px;
-	padding-bottom: 6px;
+	
 }
 .available-Sevice-Flexbox
 {

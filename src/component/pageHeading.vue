@@ -17,7 +17,7 @@
               class="profile-icon-circle"
               src="src\assets\images\profileIconCircle.svg"
             />
-            <div class="profile-icon-name">{{ initials }}</div>
+            <div class="profile-icon-name">{{ getUserInitials }}</div>
           </div>
         </div>
         <router-link to="/EditProfile">
@@ -33,25 +33,23 @@
 export default {
   data: function() {
     return {
-      username: "",
-    
+      username: ""
     };
   },
-  mounted() {
-    let name = [];
-    //this.username = this.$store.state.loggedUser;
-   // name = this.username.split(" ");
-    //let i = name[0].split("")[0];
-    //let j = name[1].split("")[0];
-    //console.log(i, j);
-    //return (this.initials = i + j);
+
+  methods: {
+    setUserInitials() {
+      this.$store.dispatch("nameInitials");
+    }
   },
-  computed:{
-    initials(){
-     return this.$store.dispatch("nameInitials");
+  computed: {
+    getUserInitials() {
+      return this.$store.state.initials;
     }
-    }
-  
+  },
+  mounted() {
+    this.setUserInitials();
+  }
 };
 </script>
 <style scoped>

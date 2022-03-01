@@ -9,7 +9,8 @@
         {
           "id": 1,
           "servicename": "Current Account",
-          "rating": 2
+          "rating": 2,
+          "code":"CURRENT_SERVICE"
         },
         {
           "id": 2,

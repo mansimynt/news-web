@@ -1,12 +1,23 @@
 <template>
   <div class="current-services-card">
     <p class="current-services-heading">Current Services</p>
-    <div class="current-Services-Flex" id="current-Services-Flex"></div>
+    <div class="current-Services-Flex" id="current-Services-Flex">
+      <table class="currentservice" >
+       <tr >
+        <td v-for="img in serviceImages" :key="img.id"><img  :src="img.imageUrl" ></td></tr>
+       <tr><td v-for="i in servicename"  :key="i"> {{i.servicename}}</td>
+       </tr>
+
+      </table>
+    </div>
   
   </div>
 </template>
 <script>
 import store from "../store/store";
+import currentAccount from "../assets/images/CurrentAccount.svg"
+import loans from "../assets/images/Loans.svg"
+import payroll from "../assets/images/Payroll.svg"
 export default {
   components: {  store },
   data:function() {
@@ -17,126 +28,31 @@ export default {
       result: [],
       userId :null,
       ratings: [],
+      userServices:[],
+      serviceImages:[],
+      servicename:[],
     };
   },
-  mounted() {
-    // //this.fetchdata();
-    // this.userId=this.$store.state.userId;
-    // console.log(this.userId);
-    // //this.getData();
-    const isCorrectUser =this.$store.dispatch("calculateUserServices");
-    console.log(isCorrectUser,"current user");
-  },
-  methods: {
+  created(){
     
-    getData: function () {
-      
-      this.$http
-        .get(this.$site_url + "allservices")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          for (
-            let i = 0;
-            i < data.length;
-            i++ //calculate total services
-          ) {
-            let j = data[i].service;
-            this.totalServices.push(j);
-          }
-
-          this.$http
-            .get(this.$site_url + "users")
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              for (
-                let i = 0;
-                i < data[this.userId].services.length;
-                i++ //Calulating subsribe service by user
-              ) {
-                let j = data[this.userId].services[i].servicename;
-                this.result = this.subscribeServices.push(j);
-                let s = data[this.userId].services[i].rating;
-                this.ratings.push(s);
-              }
-
-              this.availableServices = this.totalServices; //assigning total services to available services
-              // console.info(
-              //   "availableservice before camparing",
-              //   this.availableServices
-              // );
-
-              for (let i = 0; i < this.availableServices.length; i++) {
-                for (let j = 0; j < this.subscribeServices.length; j++) {
-                  if (this.availableServices[i] === this.subscribeServices[j]) {
-                    this.availableServices.splice(i, 1);
-                  }
-                }
-              }
-              // console.info(
-              //   "remaining available services",
-              //   this.availableServices
-              // );
-
-              for (let i = 0; i < this.subscribeServices.length; i++) {
-                var currentFlex = document.getElementById("current-Services-Flex");
-
-                let div1 = document.createElement("div");
-                div1.className = "currentservice";
-
-                let img = document.createElement("img");
-                let src =
-                  "src/assets/images/" + this.subscribeServices[i] + ".svg";
-                img.src = src;
-                img.className = "serviceimg";
-                div1.appendChild(img);
-
-                let p = document.createElement("p");
-                p.innerHTML = this.subscribeServices[i];
-                p.className = "service-Name";
-                div1.appendChild(p);
-
-                let starcontainer = document.createElement("div");
-                starcontainer.className = "stargroup1";
-                let button;
-                for (let k = 0; k < 5; k++) {
-                  button = document.createElement("button");
-                  button.className = "star" + i;
-                  button.innerHTML = "&#9733";
-                  starcontainer.appendChild(button);
-                  div1.appendChild(starcontainer);
-                  if (k >= this.ratings[i]) button.innerHTML = "&#9734";
-                }
-                currentFlex.appendChild(div1);
-                for (let k = 0; k < this.subscribeServices.length; k++) {
-                  const allstars = document.querySelectorAll(".star" + k);
-                  allstars.forEach((star, z) => {
-                    star.onclick = function () {
-                      let a = "current_star_level" + k;
-                      a = z + 1;
-                      allstars.forEach((button, j) => {
-                        if (a >= j + 1) {
-                          button.innerHTML = "&#9733";
-                        } else {
-                          button.innerHTML = "&#9734";
-                        }
-                        console.info("rating of" + k + "is" + a);
-                      });
-                    };
-                  });
-                }
-              }
-            });
-        }); //
-    },
-  },
-};
+    this.serviceImages.push({"id": 1, "imageUrl":currentAccount},
+    {"id": 2, "imageUrl":loans},{"id": 3, "imageUrl":payroll});
+    this.servicename.push({"id": 1, "servicename":"Current Account"},
+    {"id": 2, "servicename":"Payroll"},
+    {"id": 3, "servicename":"Payments"});
+  }
+    // this.$store.dispatch("calculateUserServices");
+    // this.userServices=this.$store.state.loggedUser[0].services;
+    // console.log(this.$store.state.loggedUser[0].services,"current user");
+    
+  };
 //---------------------------------------------------------------------
 </script>
-<style>
+<style >
+td{
+  padding-right: 230px;
+  width: 10%;
+}
 .star1 {
   height: 19px;
   width: 25px;
@@ -157,7 +73,7 @@ export default {
   margin-top: 4px;
 }
 .currentservice {
-  width: 128px;
+
   height: 148px;
   margin-left: 40px;
 }

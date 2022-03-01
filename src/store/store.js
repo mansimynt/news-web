@@ -11,7 +11,9 @@ const store = new Vuex.Store({
     loggedUser:[],
     jsonUserData: [],
     users: [],
-    totalServices: []
+    totalServices: [],
+    currentServices:[],
+    initials:""
   },
   mutations: {
     getUsers(state, getAllUsers) {
@@ -20,6 +22,7 @@ const store = new Vuex.Store({
       console.log("all Users",state.users);
     },
     calculateUserServices:(state)=>{
+
       console.log("current user",state.loggedUser);
     },
     getTotalServices:(state,allservices)=>{
@@ -27,8 +30,10 @@ const store = new Vuex.Store({
       console.log(state.totalServices,"all services fetch api");
     },
     currentUser:(state,currentUser)=>{
-      state.loggedUser=currentUser;
-      console.log(state.loggedUser,"current user we get");
+      state.loggedUser.push(currentUser)
+    },
+    setInitials:(state,initials)=>{
+      state.initials=initials;
       
     }
   }
@@ -45,24 +50,29 @@ const store = new Vuex.Store({
       });
     },
     userAuthentication({commit},currentUserInfo){
-     console.log(currentUserInfo,"Info of current user");
      this.state.users.forEach((user)=>{
        if(user.email===currentUserInfo[0] && user.password===currentUserInfo[1]){
-         console.log("email match");
          commit("currentUser",user);
        }
      })
     },
-     calculateUserServices({  commit }) {
+     calculateUserServices({  commit, state }) {
+    let i=[];
+    let availableServices=[];
+    let userServices=[];
+    userServices=state.loggedUser[0].services;
+    console.log(userServices,"user services");
+    console.log(state.totalServices,"all services");
       commit("calculateUserServices");
     },
     nameInitials({commit,state}){
       let name="";
-      let userInitials= state.loggedUser.FullName;
+      let userInitials= state.loggedUser[0].FullName;
        name=userInitials.split(" ");
       let firstInitial= name[0][0];
       let lastInitial= name[1][0];
    let initials =firstInitial + lastInitial;
+   commit("setInitials",initials);
     
     }
   }

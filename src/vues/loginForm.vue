@@ -57,9 +57,15 @@ export default {
   methods: {
      submit() {
       let currentUserDetails = [this.inputemail, this.inputpassword];
-     const currentUser= this.$store.dispatch("userAuthentication", currentUserDetails);
-     console.log(currentUser,"current user");
-     this.$router.push('/dashboard')
+     this.$store.dispatch("userAuthentication", currentUserDetails);
+     const user = this.$store.state.loggedUser;
+     console.log("current user",user);
+     if(user.length >0){
+       console.log("current user",user);
+       this.$router.push('/dashboard')
+     }
+     
+     
     }
   }
 };
