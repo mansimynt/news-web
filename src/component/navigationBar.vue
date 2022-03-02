@@ -49,6 +49,7 @@ li {
 .navigation1 {
   width: 125px;
   height: 60px;
+  font-weight: bold;
   border-right: 1px solid #f2f2f2;
   border-top: 3px solid #e8544b;
   border-top-left-radius: 9px;

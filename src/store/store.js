@@ -21,10 +21,6 @@ const store = new Vuex.Store({
       state.users = state.jsonUserData.data;
       console.log("all Users",state.users);
     },
-    calculateUserServices:(state)=>{
-
-      console.log("current user",state.loggedUser);
-    },
     getTotalServices:(state,allservices)=>{
       state.totalServices = allservices.data;
       console.log(state.totalServices,"all services fetch api");
@@ -56,15 +52,6 @@ const store = new Vuex.Store({
        }
      })
     },
-     calculateUserServices({  commit, state }) {
-    let i=[];
-    let availableServices=[];
-    let userServices=[];
-    userServices=state.loggedUser[0].services;
-    console.log(userServices,"user services");
-    console.log(state.totalServices,"all services");
-      commit("calculateUserServices");
-    },
     nameInitials({commit,state}){
       let name="";
       let userInitials= state.loggedUser[0].FullName;
@@ -74,7 +61,16 @@ const store = new Vuex.Store({
    let initials =firstInitial + lastInitial;
    commit("setInitials",initials);
     
+    },
+    createNewAccount({commit,state},data){
+    
+      axios
+          .post(site_url + "users"  , data)
+          .then((Response) => console.log(Response))
+          .catch((error) => console.log(error));
+        alert("Account Created Successfully...");
     }
+
   }
   });
 

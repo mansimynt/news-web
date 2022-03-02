@@ -1,11 +1,11 @@
 <template>
   <div class="current-services-card">
     <p class="current-services-heading">Current Services</p>
-    <div class="current-Services-Flex" id="current-Services-Flex">
+    <div class="current-services-flex" id="current-Services-Flex">
       <table class="currentservice" >
        <tr >
         <td v-for="img in serviceImages" :key="img.id"><img  :src="img.imageUrl" ></td></tr>
-       <tr><td v-for="i in servicename"  :key="i"> {{i.servicename}}</td>
+       <tr><td v-for="service in servicename"  :key="service.id"> {{service.servicename}}</td>
        </tr>
 
       </table>
@@ -22,13 +22,6 @@ export default {
   components: {  store },
   data:function() {
     return {
-      totalServices: [],
-      subscribeServices: [],
-      availableServices: [],
-      result: [],
-      userId :null,
-      ratings: [],
-      userServices:[],
       serviceImages:[],
       servicename:[],
     };
@@ -41,36 +34,13 @@ export default {
     {"id": 2, "servicename":"Payroll"},
     {"id": 3, "servicename":"Payments"});
   }
-    // this.$store.dispatch("calculateUserServices");
-    // this.userServices=this.$store.state.loggedUser[0].services;
-    // console.log(this.$store.state.loggedUser[0].services,"current user");
-    
   };
 //---------------------------------------------------------------------
 </script>
-<style >
+<style>
 td{
   padding-right: 230px;
   width: 10%;
-}
-.star1 {
-  height: 19px;
-  width: 25px;
-  background-color: unset;
-  border: none;
-  font-size: 35px;
-  color: #0a8b1f;
-}
-.serviceimg {
-  margin-top: 2.5px;
-}
-.service-Name {
-  margin-left: 5px;
-  margin-top: 12px;
-  margin-bottom: 0px;
-}
-.stargroup1 {
-  margin-top: 4px;
 }
 .currentservice {
 
@@ -94,7 +64,7 @@ td{
   line-height: 25px;
   font-weight: bold;
 }
-.current-Services-Flex {
+.current-services-flex {
   display: flex;
   flex-wrap: wrap;
 }
@@ -107,39 +77,7 @@ td{
   div.currentservice {
     width: 218px;
     height: 140px;
-  }
-  img.serviceimg {
-    margin-left: 84px;
-  }
-  div.stargroup1{
-    margin-left: 20px;
-  }
-  p.service-Name {
-    text-align: center;
-  }
-  button.star2,
-button.star0,
-button.star3,
-button.star4,
-button.star5,
-button.star6, button.star1{
-
-width: 35px;
+  }  
 }
 
-  
-}
-.star2,
-.star0,
-.star3,
-.star4,
-.star5,
-.star6, .star1 {
-  height: 19px;
-  width: 25px;
-  background-color: unset;
-  border: none;
-  font-size: 35px;
-  color: #0a8b1f;
-}
 </style>

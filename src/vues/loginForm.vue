@@ -61,11 +61,8 @@ export default {
      const user = this.$store.state.loggedUser;
      console.log("current user",user);
      if(user.length >0){
-       console.log("current user",user);
        this.$router.push('/dashboard')
      }
-     
-     
     }
   }
 };
@@ -93,8 +90,6 @@ export default {
 .login-Page {
   display: flex;
   flex-direction: column;
-  /*justify-content: center;
-        align-items: center;*/
 }
 .login-Heading {
   font-weight: bold;

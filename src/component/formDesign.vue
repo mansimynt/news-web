@@ -9,12 +9,6 @@
         </div>
     
 </template>
-<script>
-export default {
-  
-  
-}
-</script>
 <style>
 .red-background{
     width: 50%;

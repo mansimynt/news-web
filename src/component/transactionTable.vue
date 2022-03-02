@@ -63,7 +63,9 @@ export default {
 .rejected{
     color: #FF0000;
 }
-
+td{
+    padding-right: 0px;
+}
 img{
     display: inline;
 }

@@ -2,10 +2,10 @@
   <div class="available-services-card ">
         <p class="available-services-heading">Available Services</p>
         <div class="available-Sevice-Flexbox">
-          <table class="currentservice" >
+          <table class="availableservice" >
        <tr >
         <th v-for="img in serviceImages" :key="img.id"><img  :src="img.imageUrl" ></th></tr>
-       <tr><td v-for=" i in servicename"  :key="i"> {{i.servicename}}</td>
+       <tr><td v-for=" service in servicename"  :key="service.id"> {{service.servicename}}</td>
        </tr>
 
       </table>
@@ -31,12 +31,13 @@ export default {
     this.serviceImages.push({"id": 1, "imageUrl":wallet},
     {"id": 2, "imageUrl":taxPayment},
     {"id": 3, "imageUrl":investments},
-    {"id":4,"imgUrl":loans});
+    {"id":4,"imageUrl":loans});
     
     this.servicename.push({"id": 1, "servicename":"Wallet"},
     {"id": 2, "servicename":"TaxPayment"},
     {"id": 3, "servicename":"Investments"},
-    {"id":4,"servicename":"Loans"});
+    {"id": 4, "servicename":"Loans"}
+    );
   },
 }
 </script>
@@ -88,13 +89,5 @@ padding-bottom: 10px;
     width: 218px;
     height: 123px;
   }
-  img.serviceimg{
-	margin-left: 84px;
-}
-p.servicename{
-  margin-bottom: 25px;
-	text-align: center;
-}
-
 }
 </style>

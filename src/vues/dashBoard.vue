@@ -4,9 +4,9 @@
     <h1 class="dashboard">Dashboard</h1>
     <navigation-bar> </navigation-bar>
     <summary-card  ></summary-card>
-    <div class="bank-Service-Message">
-        <p class="services-Word">Services</p>
-        <p class="services-For-You-Message">Micro bank services for you</p>
+    <div class="bank-service-message">
+        <p class="services-word">Services</p>
+        <p class="services-for-you-message">Micro bank services for you</p>
     </div>
     <current-Service-Card></current-Service-Card>
     <available-Services-Card> </available-Services-Card>
@@ -22,12 +22,11 @@ import footerBar from '../component/pageFooter.vue'
 import pageHeading from '../component/pageHeading.vue'
 import NavigationBar from '../component/navigationBar.vue'
 import SummaryCard from '../component/summaryCard.vue'
-import ApiCalls from './apiCalls.vue'
+
 
 
 export default {
-    props:["isActive","display","name"],
-  components: { pageHeading, NavigationBar, SummaryCard, currentServiceCard, availableServicesCard, footerBar,transactionTable, ApiCalls },
+  components: { pageHeading, NavigationBar, SummaryCard, currentServiceCard, availableServicesCard, footerBar,transactionTable },
   methods:{
 
       hello(){
@@ -47,7 +46,7 @@ export default {
     margin-left: 24px;
     margin-bottom: 24px;
 }
-.bank-Service-Message{
+.bank-service-message{
 	display: flex;
 	width: 248px;
 	height: 19px;
@@ -56,13 +55,13 @@ export default {
     margin: 32px 24px 12px 24px;
 
 }
-.services-Word{
+.services-word{
 	
 	font-weight: bold;
 	margin-right: 8px;
     display: inline;
 }
-.services-For-You-Message{
+.services-for-you-message{
 	font-style: italic;
 }
 p{
