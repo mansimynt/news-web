@@ -20,11 +20,10 @@
             <div class="profile-icon-name">{{ getUserInitials }}</div>
           </div>
         </div>
-        <router-link to="/EditProfile">
           <img
             class="drop-down-arrow"
             src="src\assets\images\profileSettingDropDownArrow.svg"
-        /></router-link>
+        />
       </div>
     </div>
   </div>
@@ -55,7 +54,7 @@ export default {
 <style scoped>
 .drop-down-arrow {
   display: none;
-  padding-top: 25px;
+
 }
 .header {
   height: 72px;

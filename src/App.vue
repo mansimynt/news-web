@@ -3,18 +3,15 @@
     <router-view></router-view>
   </div>
 </template>
-
 <script>
 import createaccount from "./vues/createAccountForm.vue";
 import DashBoard from "./vues/dashBoard.vue";
 import loginForm from "./vues/loginForm.vue";
-
 export default {
   components: { loginForm, createaccount, DashBoard },
-
   name: "app",
   props: ["name"],
-  data:function() {
+  data: function() {
     return {
       msg: "Welcome to Your Vue.js App",
       display: true

@@ -1,33 +1,27 @@
 <template>
   <div class="wrap">
     <form-design></form-design>
-    <div class="login-Card">
-      <div class="login-Page">
-        <p class="login-Heading">Login</p>
-        <p class="Please-Login-Heading page-Text">
+    <div class="login-card">
+      <div class="login-page">
+        <p class="login-heading">Login</p>
+        <p class="please-login-heading page-text">
           Please login to your account
         </p>
-        <p class="loginId page-Text">Email or Phone</p>
-        <input
-          type="text"
-          class="input-Box page-Text"
-          placeholder="Enter email"
-          v-model="inputemail"
-        />
-        <p class="page-Text password-Label">Password</p>
+        <p class="login-id page-text">Email or Phone</p>
+        <input type="text" class="input-box page-text" v-model="inputemail" />
+        <p class="page-text password-Label">Password</p>
         <input
           type="password"
-          class="input-Box page-Text"
+          class="input-box page-text"
           v-model="inputpassword"
         />
         <p class="forgot-Password">Forgot Password?</p>
-        <button class="loginBtn" @click="submit()">Login</button>
-        <div class="dont-Have-Account-Text">
+        <button class="login-btn" @click="submit()">Login</button>
+        <div class="dont-have-account-text">
           Don't have an account?
-          <router-link to="/createAccount">
-            <p class="create-Account">Create an Account</p>
-            </router-link
-          >
+          <router-link to="/CreateAccount">
+            <p class="create-account">Create an Account</p>
+          </router-link>
         </div>
       </div>
     </div>
@@ -55,14 +49,14 @@ export default {
     this.$store.dispatch("getTotalServices");
   },
   methods: {
-     submit() {
+    submit() {
       let currentUserDetails = [this.inputemail, this.inputpassword];
-     this.$store.dispatch("userAuthentication", currentUserDetails);
-     const user = this.$store.state.loggedUser;
-     console.log("current user",user);
-     if(user.length >0){
-       this.$router.push('/dashboard')
-     }
+      this.$store.dispatch("userAuthentication", currentUserDetails);
+      const user = this.$store.state.loggedUser;
+      console.log("current user", user);
+      if (user.length > 0) {
+        this.$router.push("/dashboard");
+      }
     }
   }
 };
@@ -76,29 +70,31 @@ export default {
   display: flex;
   flex-direction: row;
 }
-.create-Account {
+.create-account {
   color: #d90429;
   display: inline;
+  text-decoration: none;
 }
-.login-Card {
-  width: 50%;
+.login-card {
   background: #ffffff;
+  width: -webkit-fill-available;
   box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
     0px 13px 19px 2px rgba(0, 0, 0, 0.14),
     0px 40px 40px 40px rgba(0, 0, 0, 0.12);
+  padding-bottom: 95px;
 }
-.login-Page {
+.login-page {
   display: flex;
   flex-direction: column;
 }
-.login-Heading {
+.login-heading {
   font-weight: bold;
-  font-size: 55px;
+  font-size: 50px;
   line-height: 44px;
-  margin-top: 230px;
-  margin-left: 400px;
+  margin-top: 200px;
+  margin-left: 30%;
 }
-.Please-Login-Heading {
+.please-login-heading {
   margin-top: 25px;
   color: #828282;
   font-family: Open Sans;
@@ -110,32 +106,32 @@ export default {
 p {
   margin: 0px;
 }
-.page-Text {
+.page-text {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 19px;
   height: 19px;
-  margin-left: 400px;
+  margin-left: 30%;
 }
-.loginId {
+.login-id {
   margin-top: 40px;
   color: #1a1a1a;
 }
-.input-Box {
-  width: 361px;
-  height: 60px;
+.input-box {
+  width: 215px;
+  height: 50px;
   background: #e8e8e8;
   border-radius: 12px;
   border: none;
   margin-top: 8px;
 }
-.loginBtn {
-  width: 361px;
+.login-btn {
+  width: 215px;
   height: 58px;
   color: #ffffff;
   font-size: 25px;
   background: #d90429;
-  margin-left: 400px;
+  margin-left: 30%;
   box-shadow: 0px 6px 28px 5px rgba(254, 45, 23, 0.3);
   border-radius: 12px;
   margin-top: 32px;
@@ -143,15 +139,64 @@ p {
 .forgot-Password {
   margin-top: 20px;
   color: #d90429;
-  margin-left: 585px;
+  margin-left: 40%;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
 }
-.dont-Have-Account-Text {
-  margin-top: 34px;
-  margin-left: 400px;
+.dont-have-account-text {
+  margin-top: 55px;
+  margin-left: 30%;
   color: #828282;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
+}
+@media screen and (max-width: 360) {
+  .login-heading {
+    font-size: 50px;
+    margin-left: 30%;
+    margin-top: 200px;
+  }
+}
+@media screen and (min-width: 412px) {
+  .dont-have-account-text {
+    font-size: 19px;
+  }
+  .login-card {
+    padding-bottom: 150px;
+  }
+}
+
+@media screen and (min-width: 802px) {
+  .login-heading {
+    font-size: 40px;
+    margin-top: 20%;
+    margin-left: 25%;
+  }
+  .page-text {
+    font-size: 16px;
+    margin-left: 25%;
+  }
+  .please-login-heading {
+    margin-top: 5%;
+  }
+  .forgot-Password {
+    font-size: 16px;
+  }
+  .login-btn {
+    margin-left: 25%;
+    width: 300px;
+  }
+  .dont-have-account-text {
+    margin-left: 25%;
+  }
+
+  .input-box {
+    width: 300px;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .login-card {
+    width: 50%;
+  }
 }
 </style>

@@ -2,23 +2,29 @@
   <div class="summary-card ">
     <h1 class=" summary-card-heading">Summary</h1>
     <div class="summary-card-flex">
-      <div class="summary-info-block" v-for="i in data" :key="i.label">
-        <h1 class="summary-card-label">{{ i.label }}</h1>
-        <p class="summary-card-number">{{ i.amount }}</p>
+      <div class="summary-info-block" v-for="data in summaryData" :key="data.id">
+        <h1 class="summary-card-label">{{ data.label }}</h1>
+        <p class="summary-card-number">{{ data.value }}</p>
       </div>
     </div>
   </div>
 </template>
 <script>
+import servicesData from "../jsonData/servicesData.json"
 export default {
-  data: function() {
+  data() {
     return {
       data: [
         { label: "Account Number", amount: "67238744" },
         { label: "Income", amount: "$20,00,000" },
         { label: "Spends", amount: "$11,00,000" }
-      ]
+      ],
+      summaryData:[]
     };
+    
+  },
+  created(){
+    this.summaryData=servicesData.summaryData
   }
 };
 </script>

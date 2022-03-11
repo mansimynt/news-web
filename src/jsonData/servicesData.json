@@ -48,5 +48,32 @@
             "id": 4,
             "value": "Loans"
         }
+    ],
+    "TransactionData":[
+        {"Transactionid":"2011002039111",
+        "Date":"22-09-2021",
+        "Amount":"1,780",
+        "status":"Approved"
+        },
+         {"Transactionid":"2011002039112",
+        "Date":"19-09-2021",
+        "Amount":"1,890",
+        "status":"Approved"
+        },
+         {"Transactionid":"2011002039113",
+        "Date":"20-08-2021",
+        "Amount":"5,550",
+        "status":"Rejected"
+        },
+         {"Transactionid":"2011002039114",
+        "Date":"12-07-2021",
+        "Amount":"2,590",
+        "status":"Approved"
+        },
+         {"Transactionid":"2011002039113",
+        "Date":"08-07-2021",
+        "Amount":"2,800",
+        "status":"Rejected"
+        }
     ]
 }

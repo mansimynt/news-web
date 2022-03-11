@@ -8,8 +8,8 @@
         <p class="services-word">Services</p>
         <p class="services-for-you-message">Micro bank services for you</p>
     </div>
-    <current-Service-Card></current-Service-Card>
-    <available-Services-Card> </available-Services-Card>
+    <current-service-card></current-service-card>
+    <available-services-card> </available-services-card>
     <footer-bar></footer-bar>
     
 </div>    

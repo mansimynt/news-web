@@ -62,7 +62,7 @@ const store = new Vuex.Store({
    commit("setInitials",initials);
     
     },
-    createNewAccount({commit,state},data){
+    createNewAccount({commit},data){
     
       axios
           .post(site_url + "users"  , data)

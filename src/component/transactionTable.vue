@@ -1,6 +1,6 @@
 <template>
     <div class="table-container">
-        <table>
+        <table  class="table-contains">
             <tr class="table-headings">
                 <th>Transaction ID</th>
                 <th>Date</th>
@@ -8,52 +8,48 @@
                 <th>Status</th>
                 <th>Action</th>
             </tr>
-            <tr v-for="i in this.data" :key="i.Date">
-                <td>{{ i.Transactionid}}</td>
-                <td>{{ i.Date}}</td>
-                <td>{{ i.Amount}}</td>
-                <td :class="[i.status==='Approved' ? 'Approved':'rejected']" >{{ i.status}}</td>
+            <tr v-for="data in this.tableData" :key="data.Date" >
+                <td>{{ data.Transactionid}}</td>
+                <td>{{ data.Date}}</td>
+                <td> {{data.Amount}}</td>
+                <td :class="getStatus(data.status)">{{data.status}}</td>
+                <td><img src="src\assets\images\viewIcon.svg"/>
+                <img class="downloadIcon" src="src\assets\images\downloadIcon.svg"/></td>
+            </tr>
+            
+            <!-- <tr v-for="data in tableData" :key="data.Transactionid">{{data.Amount}}
+                <td>{{ data.Transactionid}}</td>
+                <td>{{ data.Date}}</td>
+                <td>{{ data.Amount}}</td>
+                <td :class="[data.status==='Approved' ? 'Approved':'rejected']" >{{ data.status}}</td>
                    <td><img src="src\assets\images\viewIcon.svg"/>
                 <img class="downloadIcon" src="src\assets\images\downloadIcon.svg"/></td>
               
-            </tr>
+            </tr> -->
         </table>
     </div>    
 </template>
 
 <script>
+import servicesData from "../jsonData/servicesData.json"
+
 export default {
-    data(){
+    data: function(){
         return{
-            data:[
-                {'Transactionid':"2011002039111",
-                'Date':"22-09-2021",
-                "Amount":"1,780",
-                "status":"Approved"
-                },
-                 {'Transactionid':"2011002039112",
-                'Date':"19-09-2021",
-                "Amount":"1,890",
-                "status":"Approved"
-                },
-                 {'Transactionid':"2011002039113",
-                'Date':"20-08-2021",
-                "Amount":"5,550",
-                "status":"Rejected"
-                },
-                 {'Transactionid':"2011002039114",
-                'Date':"12-07-2021",
-                "Amount":"2,590",
-                "status":"Approved"
-                },
-                 {'Transactionid':"2011002039113",
-                'Date':"08-07-2021",
-                "Amount":"2,800",
-                "status":"Rejected"
-                }
-            ]
+          tableData:[],
         }
-    }
+    },
+    created(){
+        this.tableData=servicesData.TransactionData;
+    
+    },
+    methods:{
+        getStatus(status){
+          return  status==='Approved' ? 'Approved':'rejected'
+        }
+
+    },
+
 }
 </script>
 <style scoped>
@@ -63,8 +59,13 @@ export default {
 .rejected{
     color: #FF0000;
 }
+.table-contains{
+    overflow: auto;
+}
 td{
-    padding-right: 0px;
+    padding-right: 0px;border: 1px solid #E0E0E0;
+box-sizing: border-box;
+
 }
 img{
     display: inline;
@@ -76,7 +77,8 @@ background: #FFFFFF;
 box-shadow: 0px 6px 7px -4px rgba(0, 0, 0, 0.2);
 border-radius: 12px;
 padding: 28px;
-display: flex;
+overflow: auto;
+
 
 
 }
@@ -90,6 +92,7 @@ font-size: 17px;
 line-height: 157%;
 color: #828282;
 padding-right: 200px;
+flex-direction: row;
 }
 tr{ width: 100%;
     height: 46px;
@@ -103,7 +106,7 @@ tr{ width: 100%;
 
 .table-headings{
     background: #FFFFFF;
-   
+
 }
 
 </style>

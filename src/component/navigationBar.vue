@@ -1,7 +1,7 @@
 <template>
   <nav class="navigation-bar ">
     <ul>
-      <router-link to="/dashboard" tag="li" active-class="navigation1">
+      <router-link to="/Dashboard" tag="li" active-class="navigation1">
         <a>Summary</a>
       </router-link>
       <router-link to="/Details" tag="li" active-class="active-tab">

@@ -122,12 +122,14 @@ export default {
   flex-direction: row;
 }
 .form-container {
-  width: 50%;
+  width: 100%;
   background: #ffffff;
   box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
     0px 13px 19px 2px rgba(0, 0, 0, 0.14),
     0px 40px 40px 40px rgba(0, 0, 0, 0.12);
+    padding-right: 50px;
 }
+
 .login-heading {
   color: #d90429;
 }
@@ -136,36 +138,37 @@ export default {
   font-family: Open Sans;
   font-style: normal;
   font-weight: bold;
-  font-size: 50px;
+  font-size: 25px;
   line-height: 44px;
   color: #1a1a1a;
-  margin-left: 330px;
-  margin-top: 189px;
+  margin-left: 25%;
+  margin-top: 100px;
 }
 .form-label {
   font-family: Open Sans;
   font-style: normal;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
   margin-top: 30px;
   line-height: 19px;
-  margin-left: 330px;
+  margin-left: 25%;
   margin-bottom: 10px;
 }
 
 .input-box {
-  width: 360px;
+  width: 250px;
   height: 50px;
-  margin-left: 330px;
+  margin-left: 25%;
   background: #e8e8e8;
   border-radius: 12px;
   border: none;
+  flex-basis: 3%;
 }
 .submitBtn {
-  width: 360px;
+  width: 260px;
   height: 60px;
-  margin-left: 330px;
-  margin-top: 20px;
+  margin-left: 25%;
+  margin-top: 30px;
   margin-bottom: 0px;
   background: #d90429;
   box-shadow: 0px 6px 28px 5px rgba(254, 45, 23, 0.3);
@@ -184,10 +187,47 @@ export default {
   flex-wrap: wrap;
   font-style: normal;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   line-height: 19px;
   color: #828282;
-  margin-left: 340px;
+  margin-left: 23%;
   margin-top: 32px;
+  padding-bottom: 19px;
+}
+@media screen and (min-width: 570px){
+.input-box{
+  width: 280px;
+}
+.create-account-heading{
+  margin-top: 110px ;
+  font-size: 35px;
+}
+.submitBtn{
+  width: 280px;
+}
+.form-container{
+  padding-left: 15%;
+}
+.aleady-Have-Account-Heading{
+  font-size: 18px;
+}
+}
+
+@media screen and (min-width: 1100px){
+  .form-container{
+    width: 50%;
+    padding-left: 0;
+  }
+  .input-box{
+  width:360px;
+} 
+.submitBtn{
+  width: 360px;
+}
+}
+@media screen and (max-width: 300px){
+  .input-box {
+    width: 290px;
+  }
 }
 </style>
