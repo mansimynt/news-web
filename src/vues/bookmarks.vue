@@ -2,24 +2,24 @@
 <div>
   <news-heading></news-heading>
     <div class="news-cards-container">
-    <div
+      <div
       class="news-container"
       v-for="(allNews, index) in getBookmarks"
       :key="index"
-    >
+      >
       <img class="news-img" :src="allNews.urlToImage" />
       <div class="news-info">
-        <p class="news-title">{{ allNews.title }}</p>
-        <p class="news-author">{{ allNews.author }}</p>
-        <router-link  class="goToBtn" 
-         :to="{ path: '/DetailedNews/' + index }" >Go to page</router-link>
-        <img class="bookmark" src="src/assets/fillBookmark.png" 
-        @click="removeBookmark(allNews)" />
-
+          <p class="news-title">{{ allNews.title }}</p>
+          <p class="news-author">{{ allNews.author }}</p>
+        <div>
+           <router-link  class="goToBtn" 
+           :to="{ path: '/DetailedNews/' + index }" >Go to page</router-link>
+           <img class="bookmark" src="src/assets/fillBookmark.png" 
+           @click="removeBookmark(allNews)" />
+        </div>
       </div>
        <p class="publish-date">
-         Published:
-          {{ allNews.publishedAt }}
+          Published:{{ allNews.publishedAt }}
         </p>
     </div>
     
@@ -44,6 +44,7 @@ methods:{
     removeBookmark(news){
         console.log("this is removed",news);
         this.$store.dispatch("removeBookmark",news)
+        news.isBookmark=false
     }
 }
 }
@@ -57,8 +58,7 @@ methods:{
 .news-container {
   height: fit-content;
   background: #ffffff;
-  width: 400px;
-    margin-left: 10%;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,6 +66,7 @@ methods:{
 }
 .publish-date {
   height: 50px;
+  margin-top: 15px;
   background: #e7e6e6;
   color:rgb(92, 88, 88);
   margin-bottom: 0;
@@ -73,6 +74,7 @@ methods:{
   display: flex;
    justify-content: flex-start;
    align-items: center;
+   padding-left: 20px
 }
 .bookmark {
   height: 25px;
@@ -85,13 +87,14 @@ methods:{
   font-size: 20px;
 }
 .news-title {
+  margin-top: 0;
   font-size: 22px;
   font-weight: bold;
   height: 65px;
 }
 .news-img {
-  height: 350px;
-  width: 400px;
+  height: 250px;
+  width: 300px;
 
   object-fit: cover;
 }
@@ -113,10 +116,12 @@ methods:{
   flex-wrap: wrap;
   justify-content: center;
   justify-content: space-evenly;
-      margin-top: 60px;
+ margin-top: 60px;
+  padding-top: 0;
 }
 .news-info{
       padding: 15px;
+      height: 175px;
 }
 
 .news-info div {
@@ -125,10 +130,25 @@ methods:{
   height: 80px;
   overflow: hidden;
 }
+
 @media screen and (min-width: 350px) {
   .news-container {
-    width: 400px;
-   margin: 0;
+    width: 350px;
+  }
+  .news-img {
+    width: 350px;
   }
 }
+@media screen and (min-width: 600px) {
+  .news-container {
+    width: 460px;
+  }
+  .news-img {
+    height: 300px;
+    width: 460px;
+  }
+  .news-cards-container {
+    padding: 50px;
+  }
+  }
 </style>

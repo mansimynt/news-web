@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  components: { },
+  components: {},
   name: "app",
   props: ["name"],
   data: function() {
@@ -19,8 +19,8 @@ export default {
 
 <style>
 body {
- background: hsl(0deg 0% 80%);
- font-family: 'Open Sans', sans-serif;
+  background: hsl(0deg 0% 80%);
+  font-family: "Open Sans", sans-serif;
 }
 h1 {
   margin: 0px;

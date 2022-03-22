@@ -2,7 +2,7 @@
   <div class="news-header">
     <p class="news-main-title">React News Search & Bookmarks</p>
     <div class="top-news-title">
-      <router-link to="/"> Top News</router-link>
+      <router-link to="/" > Top News</router-link>
       <router-link to="/Bookmarks">Bookmarks</router-link>
     </div>
     
@@ -15,7 +15,6 @@ export default {
     return {};
   },
   created() {
-    // this.$store.dispatch("getDefaultNewsData");
     this.$store.dispatch("getFilteredResult", {
       category: "",
       country: "",
@@ -48,19 +47,9 @@ a{
 .top-news-title{
   font-size: 17px;
 }
-/* .news-header {
- 
-  justify-content: space-between;
-  height: 70px;
-  display: flex;
- 
-  font-size: 16px;
-  font-weight: lighter;
-  padding: 5px;
-} */
 .news-main-title {
   
-  font-size: 19px;
+  font-size: 17px;
 }
 h2 a {
   color: rgb(168, 175, 182);
@@ -75,13 +64,18 @@ h2 a {
 }
 @media screen and (min-width: 1070px) {
   .news-main-title {
-    font-size: 25px;
+    font-size: 27px;
   }
   .news-header {
-    padding: 0px 50px 0px 80px;
+    padding: 0px 70px 0px 175px;
   }
   .top-news-title{
-  font-size: 21px;
+  font-size: 22px;
+}
+}
+@media screen and (min-width: 800px){
+  .news-main-title {
+    font-size: 25px;
 }
 }
 </style>

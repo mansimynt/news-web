@@ -8,28 +8,29 @@
       >
         <img class="news-img" :src="allNews.urlToImage" />
         <div class="news-info">
-          <p class="news-title">{{ allNews.title }}</p><br>
+          <p class="news-title">{{ allNews.title }}</p>
           <p class="news-author">{{ allNews.author }}</p>
         </div>
         <div>
           <router-link class="goToBtn" :to="{ path: '/DetailedNews/' + index }"
             >Go to page</router-link
           >
-          <img v-if="!allNews.isBookmark"
+          <img
+            v-if="!allNews.isBookmark"
             class="bookmark"
             src="src/assets/bookmark.png"
             @click="getBookmark(allNews)"
           />
-          <img v-else
+          <img
+            v-if="allNews.isBookmark"
             class="fill-bookmark"
             src="src/assets/fillBookmark.png"
-            @click="removeBookmark(allNews.title)"
+            @click="removeBookmark(allNews)"
           />
         </div>
-        <p class="publish-date">
-          Published:
-          {{ allNews.publishedAt }}
-        </p>
+        <div class="publish-date">
+          <p>Published:{{ allNews.publishedAt }}</p>
+        </div>
       </div>
     </div>
     <button class="lode-more" @click="lodeMore()">Lode More</button>
@@ -38,35 +39,35 @@
 
 <script>
 export default {
-  data: function() {
-    return {
-      // allNewsData: this.$store.state.defaultNewsData,
-     // isBookmark:this.$store.state.isBookmark
-    };
-  },
   computed: {
     allNewsData() {
-      return this.$store.state.defaultNewsData
-      
-    },
-    
+      this.$store.state.bookmarsArray.forEach(bookmark => {
+        this.$store.state.defaultNewsData.forEach(defaultNews => {
+          if (bookmark.title === defaultNews.title) {
+            defaultNews.isBookmark = true;
+          }
+        });
+      });
+      return this.$store.state.defaultNewsData;
+    }
   },
   methods: {
     getBookmark(news) {
-      news.isBookmark=true;
+      news.isBookmark = true;
       this.$store.dispatch("addToBookmark", news);
     },
-    removeBookmark(news, index) {
+    removeBookmark(news) {
       console.log("this is removed", news);
       this.$store.dispatch("removeBookmark", news);
+      news.isBookmark = false;
     },
-    lodeMore(){
-      this.$store.state.pageSize+= 5;
-   this.$store.dispatch("getFilteredResult", {
-      category: this.$store.state.categorySearch,
-      country: this.$store.state.countrySearch,
-      keyword: this.$store.state.keywordSearch
-    });
+    lodeMore() {
+      this.$store.state.pageSize += 5;
+      this.$store.dispatch("getFilteredResult", {
+        category: this.$store.state.categorySearch,
+        country: this.$store.state.countrySearch,
+        keyword: this.$store.state.keywordSearch
+      });
     }
   }
 };
@@ -85,7 +86,7 @@ export default {
   border-radius: 15px;
 }
 
-.lode-more{
+.lode-more {
   height: 50px;
   width: 100px;
   margin-left: 50%;
@@ -99,19 +100,21 @@ export default {
   height: 50px;
   background: #e7e6e6;
   margin-bottom: 0;
+  margin-top: 15px;
   text-align: start;
   color: rgb(92, 88, 88);
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding-left: 20px;
 }
-.fill-bookmark{
+.fill-bookmark {
   width: 22px;
   float: right;
   margin-right: 16px;
 }
 .bookmark {
-  height: 30px;              
+  height: 30px;
   width: 30px;
   float: right;
   margin-right: 15px;
@@ -121,6 +124,7 @@ export default {
   font-size: 20px;
 }
 .news-title {
+  margin-top: 0;
   font-size: 22px;
   font-weight: bold;
   height: 65px;
@@ -152,6 +156,7 @@ export default {
 }
 .news-info {
   padding: 15px;
+  height: 175px;
 }
 
 .news-info div {
@@ -164,7 +169,7 @@ export default {
   .news-container {
     width: 350px;
   }
-  .news-img{
+  .news-img {
     width: 350px;
   }
 }
@@ -176,8 +181,9 @@ export default {
     height: 300px;
     width: 460px;
   }
-  .news-cards-container{
+  .news-cards-container {
     padding: 50px;
+    padding-top: 0;
   }
 }
 </style>

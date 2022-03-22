@@ -13,50 +13,48 @@ const store = new Vuex.Store({
     input: "",
     filterNewsList: [],
     bookmarsArray: [],
-    totalResults:"",
-    isBookmark:false,
-    countrySearch:"",
-    categorySearch:"",
-    keywordSearch:""
+    totalResults: "",
+    countrySearch: "",
+    categorySearch: "",
+    keywordSearch: ""
   },
   getters: {
     getBookmarks: state => {
       return state.bookmarsArray;
     },
-    getTotalResults: state=>{
+    getTotalResults: state => {
       return state.totalResults;
     }
   },
   mutations: {
     setDefaultNewsData(state, newsData) {
-      newsData.articles.map((value)=>{
-        value.isBookmark=false;
-      })
-      console.log(newsData.articles);
-      state.defaultNewsData=newsData.articles;
-      state.totalResults=newsData.totalResults
+      newsData.articles.map(value => {
+        value.isBookmark = false;
+      });
+      state.defaultNewsData = newsData.articles;
+      state.totalResults = newsData.totalResults;
     },
     setBookmark(state, bookmark) {
-      let allBookmarks=[]
-      allBookmarks.push(bookmark)
-     allBookmarks.forEach(element=>{
-       state.bookmarsArray.push(element)
-       state.isBookmark=true;
-     })
-
-      console.log(state.bookmarsArray);
+      let allBookmarks = [];
+      allBookmarks.push(bookmark);
+      allBookmarks.forEach(element => {
+        state.bookmarsArray.push(element);
+      });
     }
   },
   actions: {
-    getFilteredResult({ commit,state }, searchFilter) {
-  
+    getFilteredResult({ commit, state }, searchFilter) {
       const category_url = `https://newsapi.org/v2/top-headlines?country=${searchFilter &&
         searchFilter.country}&category=${searchFilter &&
-        searchFilter.category}&pageSize=${state.pageSize}&page=1&apiKey=52558bd4559b49a8be19c436e85c750f`;
+        searchFilter.category}&pageSize=${
+        state.pageSize
+      }&page=1&apiKey=57143810dbfb4391bbe5822200909cda`;
 
       const query_url = `https://newsapi.org/v2/everything?q=${(searchFilter &&
         searchFilter.keyword) ||
-        "tesla"}&page=1&pageSize=${state.pageSize}&apiKey=52558bd4559b49a8be19c436e85c750f`;
+        "tesla"}&page=1&pageSize=${
+        state.pageSize
+      }&apiKey=57143810dbfb4391bbe5822200909cda`;
 
       let selected_url;
       if (searchFilter.category && searchFilter.country) {
@@ -73,15 +71,14 @@ const store = new Vuex.Store({
     addToBookmark({ commit }, news) {
       commit("setBookmark", news);
     },
-    removeBookmark({state},paylod){
-      state.bookmarsArray.forEach((element)=>{
-        if(element.title === paylod.title){
-          state.bookmarsArray.splice(element,1)
-          state.isBookmark=false
+    removeBookmark({ state }, paylod) {
+      console.log(paylod);
+      state.bookmarsArray.forEach((element,index) => {
+        if (element.title === paylod.title) {
+          state.bookmarsArray.splice(index, 1);
+          
         }
-        
-      })
-
+      });
     }
   }
 });
