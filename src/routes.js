@@ -1,19 +1,13 @@
 //import { component } from "vue/types/umd"
-import loginForm from "./vues/loginForm.vue"
-import createAccountForm from "./vues/createAccountForm.vue"
-import dashBoard from './vues/dashBoard.vue'
-import detailsTab from './vues/detailsTab.vue'
 import VueRouter from 'vue-router';
-
+import mainNews  from './vues/mainNews.vue'
+import detailedNews from './component/detailedNews.vue'
+import bookmarks from './vues/bookmarks.vue'
 
  const routes =[
-    { path : '', component: loginForm},
-    { path : '/Login', component: loginForm},
-    { path : '/CreateAccount', component: createAccountForm},
-    {path :'/Dashboard' , component: dashBoard },
-    {path:'/Details', component: detailsTab },
-    { path: 'Dashboard', redirect :'/dashboard' },
-    
+    { path : '', component: mainNews},
+    { path:'/DetailedNews/:id' , component:detailedNews },
+    {path : '/Bookmarks', component:bookmarks}, 
 ];
 
  const router = new VueRouter({

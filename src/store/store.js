@@ -1,77 +1,89 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-
 const axios = require("axios").default;
 Vue.use(Vuex);
 const site_url = "http://localhost:3000/";
 const store = new Vuex.Store({
   state: {
-    userId: null,
-    loggedUser:[],
-    jsonUserData: [],
-    users: [],
-    totalServices: [],
-    currentServices:[],
-    initials:""
+    defaultNewsData: [],
+    newsIndex: "",
+    pageSize: 10,
+    pageNumber: 1,
+    input: "",
+    filterNewsList: [],
+    bookmarsArray: [],
+    totalResults:"",
+    isBookmark:false,
+    countrySearch:"",
+    categorySearch:"",
+    keywordSearch:""
+  },
+  getters: {
+    getBookmarks: state => {
+      return state.bookmarsArray;
+    },
+    getTotalResults: state=>{
+      return state.totalResults;
+    }
   },
   mutations: {
-    getUsers(state, getAllUsers) {
-      state.jsonUserData = getAllUsers; //storing all json data
-      state.users = state.jsonUserData.data;
-      console.log("all Users",state.users);
+    setDefaultNewsData(state, newsData) {
+      newsData.articles.map((value)=>{
+        value.isBookmark=false;
+      })
+      console.log(newsData.articles);
+      state.defaultNewsData=newsData.articles;
+      state.totalResults=newsData.totalResults
     },
-    getTotalServices:(state,allservices)=>{
-      state.totalServices = allservices.data;
-      console.log(state.totalServices,"all services fetch api");
-    },
-    currentUser:(state,currentUser)=>{
-      state.loggedUser.push(currentUser)
-    },
-    setInitials:(state,initials)=>{
-      state.initials=initials;
-      
-    }
-  }
-  ,
-  actions: {
-    getAllUsers({ commit }) {
-      axios.get(site_url + "users").then(users => {
-        commit("getUsers", users); //Get all users data api
-      });
-    },
-    getTotalServices({ commit },) {
-      axios.get(site_url + "allservices").then(allservices => {
-      commit("getTotalServices",allservices); //Get all service data
-      });
-    },
-    userAuthentication({commit},currentUserInfo){
-     this.state.users.forEach((user)=>{
-       if(user.email===currentUserInfo[0] && user.password===currentUserInfo[1]){
-         commit("currentUser",user);
-       }
+    setBookmark(state, bookmark) {
+      let allBookmarks=[]
+      allBookmarks.push(bookmark)
+     allBookmarks.forEach(element=>{
+       state.bookmarsArray.push(element)
+       state.isBookmark=true;
      })
-    },
-    nameInitials({commit,state}){
-      let name="";
-      let userInitials= state.loggedUser[0].FullName;
-       name=userInitials.split(" ");
-      let firstInitial= name[0][0];
-      let lastInitial= name[1][0];
-   let initials =firstInitial + lastInitial;
-   commit("setInitials",initials);
-    
-    },
-    createNewAccount({commit},data){
-    
-      axios
-          .post(site_url + "users"  , data)
-          .then((Response) => console.log(Response))
-          .catch((error) => console.log(error));
-        alert("Account Created Successfully...");
-    }
 
+      console.log(state.bookmarsArray);
+    }
+  },
+  actions: {
+    getFilteredResult({ commit,state }, searchFilter) {
+  
+      const category_url = `https://newsapi.org/v2/top-headlines?country=${searchFilter &&
+        searchFilter.country}&category=${searchFilter &&
+        searchFilter.category}&pageSize=${state.pageSize}&page=1&apiKey=52558bd4559b49a8be19c436e85c750f`;
+
+      const query_url = `https://newsapi.org/v2/everything?q=${(searchFilter &&
+        searchFilter.keyword) ||
+        "tesla"}&page=1&pageSize=${state.pageSize}&apiKey=52558bd4559b49a8be19c436e85c750f`;
+
+      let selected_url;
+      if (searchFilter.category && searchFilter.country) {
+        selected_url = category_url;
+      } else {
+        selected_url = query_url;
+      }
+      fetch(selected_url)
+        .then(responce => responce.json())
+        .then(data => {
+          commit("setDefaultNewsData", data);
+        });
+    },
+    addToBookmark({ commit }, news) {
+      commit("setBookmark", news);
+    },
+    removeBookmark({state},paylod){
+      state.bookmarsArray.forEach((element)=>{
+        if(element.title === paylod.title){
+          state.bookmarsArray.splice(element,1)
+          state.isBookmark=false
+        }
+        
+      })
+
+    }
   }
-  });
+});
 
 export default store;

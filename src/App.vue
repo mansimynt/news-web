@@ -4,11 +4,8 @@
   </div>
 </template>
 <script>
-import createaccount from "./vues/createAccountForm.vue";
-import DashBoard from "./vues/dashBoard.vue";
-import loginForm from "./vues/loginForm.vue";
 export default {
-  components: { loginForm, createaccount, DashBoard },
+  components: { },
   name: "app",
   props: ["name"],
   data: function() {
@@ -22,8 +19,8 @@ export default {
 
 <style>
 body {
-  background: #e5e5e5;
-  font-family: Open Sans;
+ background: hsl(0deg 0% 80%);
+ font-family: 'Open Sans', sans-serif;
 }
 h1 {
   margin: 0px;
