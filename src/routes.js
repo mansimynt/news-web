@@ -8,6 +8,7 @@ import bookmarks from './vues/bookmarks.vue'
     { path : '', component: mainNews},
     { path:'/DetailedNews/:id' , component:detailedNews },
     {path : '/Bookmarks', component:bookmarks}, 
+    { path:'/DetailedNews/:id' , redirect:'/DetailedNews/:id' },
 ];
 
  const router = new VueRouter({

@@ -14,8 +14,3 @@ export default {
   components: { newsHeading, searchBar ,newsCard}
 };
 </script>
-
-<style>
-
-
-</style>

@@ -2,28 +2,11 @@
   <div class="news-header">
     <p class="news-main-title">React News Search & Bookmarks</p>
     <div class="top-news-title">
-      <router-link to="/" > Top News</router-link>
+      <router-link to="/"> Top News</router-link>
       <router-link to="/Bookmarks">Bookmarks</router-link>
     </div>
-    
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {};
-  },
-  created() {
-    this.$store.dispatch("getFilteredResult", {
-      category: "",
-      country: "",
-      keyword: ""
-    });
-  }
-};
-</script>
-
 <style scoped>
 .news-header {
   background-color: hsl(210deg 10% 23%);
@@ -32,23 +15,20 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 15px
-
+  padding: 0px 15px;
 }
-*{
+* {
   margin: 0;
   padding: 0;
-  
 }
-a{
- color: rgb(172, 169, 169);
+a {
+  color: rgb(172, 169, 169);
   text-decoration: none;
 }
-.top-news-title{
+.top-news-title {
   font-size: 17px;
 }
 .news-main-title {
-  
   font-size: 17px;
 }
 h2 a {
@@ -60,7 +40,6 @@ h2 a {
   color: white;
   text-decoration: none;
   border-bottom: 5px solid darkgray;
- 
 }
 @media screen and (min-width: 1070px) {
   .news-main-title {
@@ -69,13 +48,13 @@ h2 a {
   .news-header {
     padding: 0px 70px 0px 175px;
   }
-  .top-news-title{
-  font-size: 22px;
+  .top-news-title {
+    font-size: 22px;
+  }
 }
-}
-@media screen and (min-width: 800px){
+@media screen and (min-width: 800px) {
   .news-main-title {
     font-size: 25px;
-}
+  }
 }
 </style>

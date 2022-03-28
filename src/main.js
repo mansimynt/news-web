@@ -5,6 +5,7 @@ import VueResource from "vue-resource";
 import App from "./App.vue";
 import router from "./routes";
 import store from "./store/store";
+import  formatDate  from "../src/dateFilter";
 Vue.prototype.$site_url = "http://localhost:3000/";
 
 Vue.use(VueResource);
@@ -16,5 +17,6 @@ new Vue({
   //el: '#app',
   store,
   router,
+  formatDate,
   render: h => h(App)
 }).$mount("#app");

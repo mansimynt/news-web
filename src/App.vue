@@ -13,6 +13,13 @@ export default {
       msg: "Welcome to Your Vue.js App",
       display: true
     };
+  },
+  created() {
+    this.$store.dispatch("getFilteredResult", {
+      category: "",
+      country: "",
+      keyword: ""
+    });
   }
 };
 </script>

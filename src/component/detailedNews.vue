@@ -9,7 +9,7 @@
       <a>{{ currentNews.url }}</a>
       <p>{{ currentNews.description }}</p>
     </div>
-    <router-link class="goToBtn" to="/">Go To Home </router-link>
+    <router-link class="goToBtn" to="/">Go to home </router-link>
   </div>
 </template>
 
@@ -21,20 +21,29 @@ export default {
     return {
       currentNewsId: this.$route.params.id,
       currentNews: [],
-      allNewsData: this.$store.state.defaultNewsData
+      allNewsData: [],
+      isFromBookmark: this.$store.state.isFromBookmark
     };
   },
   computed: {
     getCurrentNews() {
-      this.currentNews = this.allNewsData.find(
-        (element, index) => index === parseInt(this.currentNewsId)
-      );
+      if (!this.isFromBookmark) {
+        (this.allNewsData = this.$store.state.defaultNewsData),
+          (this.currentNews = this.allNewsData.find(
+            (element, index) => index === parseInt(this.currentNewsId)
+          ));
+      } else {
+        (this.allNewsData = this.$store.state.bookmarsArray),
+          (this.currentNews = this.allNewsData.find(
+            (element, index) => index === parseInt(this.currentNewsId)
+          ));
+      }
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 .detail-news {
   display: flex;
   flex-direction: column;
@@ -46,8 +55,10 @@ export default {
 }
 .news-information {
   margin: 20px;
+  margin-left: 10px;
 }
 .goToBtn {
+  margin-left: 10px;
   background-color: hsl(210deg 10% 23%);
   width: fit-content;
   color: white;
@@ -57,6 +68,7 @@ export default {
   margin-top: 20px;
   cursor: pointer;
   text-decoration: none;
+  width: max-content;
 }
 @media screen and (min-width: 400px) {
   .cover-image {

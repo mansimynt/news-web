@@ -29,17 +29,32 @@
           />
         </div>
         <div class="publish-date">
-          <p>Published:{{ allNews.publishedAt }}</p>
+          <p>Published:{{ allNews.publishedAt | formatDate }}</p>
         </div>
       </div>
     </div>
-    <button class="lode-more" @click="lodeMore()">Lode More</button>
+    <div v-if="!getLodeMoreStatus">
+      <button
+        class="lode-more"
+        @click="loadMore()"
+        :disabled="getLodeMoreStatus"
+      >
+        Load More
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      isLoadMore: false
+    };
+  },
   computed: {
+    ...mapGetters(["getTotalResults", "getLodeMoreStatus"]),
     allNewsData() {
       this.$store.state.bookmarsArray.forEach(bookmark => {
         this.$store.state.defaultNewsData.forEach(defaultNews => {
@@ -53,16 +68,13 @@ export default {
   },
   methods: {
     getBookmark(news) {
-      news.isBookmark = true;
       this.$store.dispatch("addToBookmark", news);
     },
     removeBookmark(news) {
-      console.log("this is removed", news);
       this.$store.dispatch("removeBookmark", news);
-      news.isBookmark = false;
     },
-    lodeMore() {
-      this.$store.state.pageSize += 5;
+    loadMore() {
+      this.$store.dispatch("incrementPage");
       this.$store.dispatch("getFilteredResult", {
         category: this.$store.state.categorySearch,
         country: this.$store.state.countrySearch,
