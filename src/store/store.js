@@ -6,19 +6,20 @@ Vue.use(Vuex);
 const site_url = "http://localhost:3000/";
 const store = new Vuex.Store({
   state: {
-    defaultNewsData: [],
-    newsIndex: "",
+    isFromBookmark: false,
+    isLodeMore: false,
     pageSize: 10,
     pageNumber: 1,
+    newsIndex: "",
     input: "",
-    filterNewsList: [],
-    bookmarsArray: [],
     totalResults: "",
     countrySearch: "",
+    countryName: "",
     categorySearch: "",
     keywordSearch: "",
-    isFromBookmark: false,
-    isLodeMore:false
+    filterNewsList: [],
+    bookmarsArray: [],
+    defaultNewsData: []
   },
   getters: {
     getBookmarks: state => {
@@ -27,33 +28,39 @@ const store = new Vuex.Store({
     getTotalResults: state => {
       return state.totalResults;
     },
-    getPageNumber: state =>{
+    getPageNumber: state => {
       return state.pageNumber;
     },
-    getSearchData:state =>{
-   return {"country":state.countrySearch ,"category": state.categorySearch};
-  
+    getSearchData: state => {
+      return {
+        country: state.countrySearch,
+        category: state.categorySearch,
+        keyword: state.keywordSearch
+      };
     },
-
-    getLodeMoreStatus: state =>{
-      const totalPage = Math.floor(state.totalResults/ state.pageSize);
-      if(totalPage>=state.pageNumber){
+    getLodeMoreStatus: state => {
+      const totalPage = Math.floor(state.totalResults / state.pageSize);
+      if (totalPage >= state.pageNumber) {
         return false;
-      }
-      else{
+      } else {
         return true;
       }
     }
-  }, 
+  },
   mutations: {
     setDefaultNewsData(state, newsData) {
-      newsData.articles.map(value => {
-        value.isBookmark = false;
-      });
-      newsData.articles.forEach(element => {
-        state.defaultNewsData.push(element);
-      });
-      state.totalResults = newsData.totalResults;
+      console.log(newsData);
+      if (newsData.totalResults == 0) {
+        alert("no more results");
+      } else {
+        state.totalResults = newsData.totalResults;
+        newsData.articles.map(value => {
+          value.isBookmark = false;
+        });
+        newsData.articles.forEach(element => {
+          state.defaultNewsData.push(element);
+        });
+      }
     },
     setBookmark(state, bookmark) {
       let allBookmarks = [];
@@ -63,33 +70,30 @@ const store = new Vuex.Store({
       });
     },
     setFilterNews(state, filterNews) {
-      state.filterNewsList = [];
-      filterNews.articles.forEach(element => {
-        state.filterNewsList.push(element);
-        state.defaultNewsData = state.filterNewsList;
-        state.totalResults = filterNews.totalResults;
-      });
+      state.totalResults = filterNews.totalResults;
+      if (state.totalResults == 0) {
+        state.defaultNewsData = [];
+      } else {
+        state.filterNewsList = [];
+        state.defaultNewsData = [];
+        filterNews.articles.forEach(element => {
+          state.filterNewsList.push(element);
+          state.defaultNewsData = state.filterNewsList;
+        });
+      }
     },
-    incrementPageNumber(state){
+    incrementPageNumber(state) {
       state.pageNumber += 1;
     }
   },
   actions: {
-    getFilteredResult({ commit, state }, searchFilter) {
-      const category_url = `https://newsapi.org/v2/top-headlines?country=${searchFilter &&
-        searchFilter.country}&category=${searchFilter &&
-        searchFilter.category}&pageSize=${state.pageSize}&page=${
-        state.pageNumber
-      }&apiKey=4f45fca2b05142488c4b7504ee84ff2b`;
+    getFilteredResult({ commit, state }) {
+      const category_url = `https://newsapi.org/v2/top-headlines?q=${state.keywordSearch}&country=${state.countrySearch}&category=${state.categorySearch}&pageSize=${state.pageSize}&page=${state.pageNumber}&apiKey=22ce948f90ca4201b251f6ed104adf3b`;
 
-      const query_url = `https://newsapi.org/v2/everything?q=${(searchFilter &&
-        searchFilter.keyword) ||
-        "technology"}&page=${state.pageNumber}&pageSize=${
-        state.pageSize
-      }&apiKey=4f45fca2b05142488c4b7504ee84ff2b`;
+      const query_url = `https://newsapi.org/v2/everything?q=technology&page=${state.pageNumber}&pageSize=${state.pageSize}&apiKey=22ce948f90ca4201b251f6ed104adf3b`;
 
       let selected_url;
-      if (searchFilter.category || searchFilter.country) {
+      if (state.categorySearch || state.countrySearch) {
         selected_url = category_url;
       } else {
         selected_url = query_url;
@@ -101,30 +105,26 @@ const store = new Vuex.Store({
         });
     },
     addToBookmark({ commit }, news) {
-      news.isBookmark = true;
+      news.isBookmark = true; //adding to bookmarks
       commit("setBookmark", news);
     },
     removeBookmark({ state }, paylod) {
-      paylod.isBookmark = false;
+      paylod.isBookmark = false; //removing bookmark
       state.bookmarsArray.forEach((element, index) => {
         if (element.title === paylod.title) {
           state.bookmarsArray.splice(index, 1);
         }
       });
     },
-    getFilteredNews({ commit, state }, searchFilter) {
-      const URL = `https://newsapi.org/v2/top-headlines?country=${searchFilter &&
-        searchFilter.country}&category=${searchFilter &&
-        searchFilter.category}&pageSize=${state.pageSize}&page=${
-        state.pageNumber
-      }&apiKey=4f45fca2b05142488c4b7504ee84ff2b`;
-      fetch(URL)
+    getFilteredNews({ commit, state }) {
+      const url = `https://newsapi.org/v2/top-headlines?q=${state.keywordSearch}&country=${state.countrySearch}&category=${state.categorySearch}&pageSize=${state.pageSize}&page=${state.pageNumber}&apiKey=22ce948f90ca4201b251f6ed104adf3b`;
+      fetch(url)
         .then(responce => responce.json())
         .then(data => {
           commit("setFilterNews", data);
         });
-    }, 
-    incrementPage({commit}){
+    },
+    incrementPage({ commit }) {
       commit("incrementPageNumber");
     }
   }

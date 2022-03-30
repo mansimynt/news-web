@@ -6,13 +6,11 @@
         <option
           v-for="country in allCountries"
           :key="country.name"
-          :value="country.value" 
-          :selected="getSearchData.country==country.value ? true : false" 
+          :value="country.value"
           >{{ country.name }}
-          </option
-        >
+        </option>
       </select>
-      <select class="drop-down-box" v-model="selectedCategoury">
+      <select class="drop-down-box" v-model="selectedCategory">
         <option value="">Select Categories</option>
         <option
           v-for="category in allCategories"
@@ -23,11 +21,11 @@
       </select>
       <input
         type="text"
-        placeholder="Keyword"
+        placeholder="Keyword eg. Technology"
         class="keyword-text-box"
         v-model="keyword"
       />
-      <button class="search-bar-buttons" @click="enterdvalue">
+      <button class="search-bar-buttons" @click="searchNews()">
         <img class="search-icon" :src="searchIcon" />
       </button>
       <button class="search-bar-buttons">
@@ -45,31 +43,50 @@ import categoryData from "../jsonData/categories.json";
 import searchIcon from "../assets/search-icon.png";
 import listIcon from "../assets/list.png";
 export default {
-
   data: function() {
     return {
-      allCountries: countryData,
-      allCategories: categoryData,
-      searchIcon: searchIcon,
       listIcon: listIcon,
       selectedCountry: "",
-      selectedCategoury: "",
-      keyword: ""
+      selectedCategory: "",
+      keyword: "",
+      allCountries: countryData,
+      allCategories: categoryData,
+      searchIcon: searchIcon
     };
   },
   computed: {
-    ...mapGetters(["getTotalResults", "getSearchData"])
+    ...mapGetters(["getTotalResults", "getSearchData", "getCountryName"]),
+    countryName() {
+      return this.getCountryName;
+    },
+    selected() {
+      return this.selectedCategory;
+    }
+  },
+  mounted() {
+    if (this.getSearchData.country != "") {
+      this.selectedCountry = this.getSearchData.country;
+    }
+    if (this.getSearchData.category != "") {
+      this.selectedCategory = this.getSearchData.category;
+    }
+    if (this.getSearchData.keyword != "") {
+      this.keyword = this.getSearchData.keyword;
+    }
   },
   methods: {
-    enterdvalue() {
+    searchNews() {
+      this.$store.state.pageNumber = 1;
       (this.$store.state.countrySearch = this.selectedCountry),
-        (this.$store.state.categorySearch = this.selectedCategoury),
+        (this.$store.state.categorySearch = this.selectedCategory),
         (this.$store.state.keywordSearch = this.keyword);
-        let searchFilter = {
-        category: this.selectedCategoury,
+
+      let searchFilter = {
+        category: this.selectedCategory,
         country: this.selectedCountry,
         keyword: this.keyword
       };
+      // this.$store.dispatch("getCountryName",this.countryName);
       this.$store.dispatch("getFilteredNews", searchFilter);
     }
   }

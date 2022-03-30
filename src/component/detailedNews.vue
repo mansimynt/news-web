@@ -20,14 +20,14 @@ export default {
   data() {
     return {
       currentNewsId: this.$route.params.id,
+       isFromBookmark: this.$store.state.isFromBookmark,
       currentNews: [],
       allNewsData: [],
-      isFromBookmark: this.$store.state.isFromBookmark
     };
   },
   computed: {
     getCurrentNews() {
-      if (!this.isFromBookmark) {
+      if (!this.isFromBookmark) { //check if click from main page or bookmark page and set data 
         (this.allNewsData = this.$store.state.defaultNewsData),
           (this.currentNews = this.allNewsData.find(
             (element, index) => index === parseInt(this.currentNewsId)

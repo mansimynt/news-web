@@ -34,11 +34,7 @@
       </div>
     </div>
     <div v-if="!getLodeMoreStatus">
-      <button
-        class="lode-more"
-        @click="loadMore()"
-        :disabled="getLodeMoreStatus"
-      >
+      <button class="lode-more" @click="loadMore()">
         Load More
       </button>
     </div>
@@ -48,11 +44,6 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      isLoadMore: false
-    };
-  },
   computed: {
     ...mapGetters(["getTotalResults", "getLodeMoreStatus"]),
     allNewsData() {
@@ -75,11 +66,7 @@ export default {
     },
     loadMore() {
       this.$store.dispatch("incrementPage");
-      this.$store.dispatch("getFilteredResult", {
-        category: this.$store.state.categorySearch,
-        country: this.$store.state.countrySearch,
-        keyword: this.$store.state.keywordSearch
-      });
+      this.$store.dispatch("getFilteredResult");
     }
   }
 };
@@ -88,7 +75,7 @@ export default {
 <style scoped>
 .news-container {
   height: fit-content;
-  margin: 34px;
+  margin: 15px;
   width: 300px;
   background: #ffffff;
   margin-bottom: 25px;
@@ -194,8 +181,17 @@ export default {
     width: 460px;
   }
   .news-cards-container {
-    padding: 50px;
     padding-top: 0;
+  }
+}
+@media screen and (min-width: 750px) {
+  .news-cards-container {
+    padding: 50px;
+  }
+}
+@media screen and (min-width: 1300px) {
+  .news-container {
+    margin: 25px;
   }
 }
 </style>
