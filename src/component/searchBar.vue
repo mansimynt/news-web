@@ -55,13 +55,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getTotalResults", "getSearchData", "getCountryName"]),
-    countryName() {
-      return this.getCountryName;
-    },
-    selected() {
-      return this.selectedCategory;
-    }
+    ...mapGetters(["getTotalResults", "getSearchData", "getCountryName"])
   },
   mounted() {
     if (this.getSearchData.country != "") {
@@ -86,7 +80,6 @@ export default {
         country: this.selectedCountry,
         keyword: this.keyword
       };
-      // this.$store.dispatch("getCountryName",this.countryName);
       this.$store.dispatch("getFilteredNews", searchFilter);
     }
   }

@@ -20,14 +20,15 @@ export default {
   data() {
     return {
       currentNewsId: this.$route.params.id,
-       isFromBookmark: this.$store.state.isFromBookmark,
+      isFromBookmark: this.$store.state.isFromBookmark,
       currentNews: [],
-      allNewsData: [],
+      allNewsData: []
     };
   },
   computed: {
     getCurrentNews() {
-      if (!this.isFromBookmark) { //check if click from main page or bookmark page and set data 
+      if (!this.isFromBookmark) {
+        //check if click from main page or bookmark page and set data
         (this.allNewsData = this.$store.state.defaultNewsData),
           (this.currentNews = this.allNewsData.find(
             (element, index) => index === parseInt(this.currentNewsId)
@@ -60,7 +61,7 @@ export default {
 .goToBtn {
   margin-left: 10px;
   background-color: hsl(210deg 10% 23%);
-  width: fit-content;
+  width: 100px;
   color: white;
   border-radius: 5px;
   padding: 10px 15px;
@@ -68,7 +69,6 @@ export default {
   margin-top: 20px;
   cursor: pointer;
   text-decoration: none;
-  width: max-content;
 }
 @media screen and (min-width: 400px) {
   .cover-image {

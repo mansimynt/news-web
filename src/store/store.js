@@ -1,9 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
-const axios = require("axios").default;
 Vue.use(Vuex);
-const site_url = "http://localhost:3000/";
 const store = new Vuex.Store({
   state: {
     isFromBookmark: false,
@@ -49,7 +46,6 @@ const store = new Vuex.Store({
   },
   mutations: {
     setDefaultNewsData(state, newsData) {
-      console.log(newsData);
       if (newsData.totalResults == 0) {
         alert("no more results");
       } else {
@@ -88,9 +84,9 @@ const store = new Vuex.Store({
   },
   actions: {
     getFilteredResult({ commit, state }) {
-      const category_url = `https://newsapi.org/v2/top-headlines?q=${state.keywordSearch}&country=${state.countrySearch}&category=${state.categorySearch}&pageSize=${state.pageSize}&page=${state.pageNumber}&apiKey=22ce948f90ca4201b251f6ed104adf3b`;
+      const category_url = `https://newsapi.org/v2/top-headlines?q=${state.keywordSearch}&country=${state.countrySearch}&category=${state.categorySearch}&pageSize=${state.pageSize}&page=${state.pageNumber}&apiKey=72b3d47cc6ef42e691378aad444a9700`;
 
-      const query_url = `https://newsapi.org/v2/everything?q=technology&page=${state.pageNumber}&pageSize=${state.pageSize}&apiKey=22ce948f90ca4201b251f6ed104adf3b`;
+      const query_url = `https://newsapi.org/v2/everything?q=technology&page=${state.pageNumber}&pageSize=${state.pageSize}&apiKey=72b3d47cc6ef42e691378aad444a9700`;
 
       let selected_url;
       if (state.categorySearch || state.countrySearch) {
@@ -117,7 +113,7 @@ const store = new Vuex.Store({
       });
     },
     getFilteredNews({ commit, state }) {
-      const url = `https://newsapi.org/v2/top-headlines?q=${state.keywordSearch}&country=${state.countrySearch}&category=${state.categorySearch}&pageSize=${state.pageSize}&page=${state.pageNumber}&apiKey=22ce948f90ca4201b251f6ed104adf3b`;
+      const url = `https://newsapi.org/v2/top-headlines?q=${state.keywordSearch}&country=${state.countrySearch}&category=${state.categorySearch}&pageSize=${state.pageSize}&page=${state.pageNumber}&apiKey=72b3d47cc6ef42e691378aad444a9700`;
       fetch(url)
         .then(responce => responce.json())
         .then(data => {

@@ -191,7 +191,7 @@ export default {
 }
 @media screen and (min-width: 1300px) {
   .news-container {
-    margin: 25px;
+    margin: 30px;
   }
 }
 </style>

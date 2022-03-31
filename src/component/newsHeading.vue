@@ -45,9 +45,7 @@ h2 a {
   .news-main-title {
     font-size: 27px;
   }
-  .news-header {
-    padding: 0px 70px 0px 175px;
-  }
+ 
   .top-news-title {
     font-size: 22px;
   }
@@ -55,6 +53,11 @@ h2 a {
 @media screen and (min-width: 800px) {
   .news-main-title {
     font-size: 25px;
+  }
+}
+@media screen and (min-width: 1300px){
+   .news-header {
+    padding: 0px 70px 0px 175px;
   }
 }
 </style>

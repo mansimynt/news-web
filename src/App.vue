@@ -5,15 +5,7 @@
 </template>
 <script>
 export default {
-  components: {},
   name: "app",
-  props: ["name"],
-  data: function() {
-    return {
-      msg: "Welcome to Your Vue.js App",
-      display: true
-    };
-  },
   created() {
     this.$store.dispatch("getFilteredResult", {
       category: "",

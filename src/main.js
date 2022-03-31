@@ -14,7 +14,6 @@ Vue.use(VueRouter);
 export const eventBus = new Vue();
 
 new Vue({
-  //el: '#app',
   store,
   router,
   formatDate,
