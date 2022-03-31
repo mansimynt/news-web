@@ -8,7 +8,7 @@
       >
         <img class="news-img" :src="allNews.urlToImage" />
         <div class="news-info">
-          <p class="news-title">{{ allNews.title }}</p>
+          <p class="news-title">{{ allNews.title }}</p><br>
           <p class="news-author">{{ allNews.author }}</p>
         </div>
         <div>
