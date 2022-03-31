@@ -1,4 +1,4 @@
-# microbank
+# news-web
 
 > A Vue.js project
 
