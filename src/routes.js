@@ -1,7 +1,7 @@
 import VueRouter from "vue-router";
-import mainNews from "./vues/mainNews.vue";
+import mainNews from "./views/mainNews.vue";
 import detailedNews from "./component/detailedNews.vue";
-import bookmarks from "./vues/bookmarks.vue";
+import bookmarks from "./views/bookmarks.vue";
 
 const routes = [
   { path: "", component: mainNews },
